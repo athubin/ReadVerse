@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url("../images/bg2.jpg") no-repeat center center/cover;
+    height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: -1;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffffd0;
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+}
+
+.material-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 4px;
+}
+
+/* Material Input */
+.material-input {
+    border: none;
+    border-bottom: 2px solid #aaa;
+    border-radius: 0;
+    background: transparent;
+    transition: .3s;
+}
+
+.material-input:focus {
+    box-shadow: none;
+    border-bottom: 2px solid #007bff;
+}
+
+/* Snackbar */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #e53935;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 14px;
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 16px;
+    z-index: 9999;
+}
+
+#snackbar.show {
+    visibility: visible;
+    animation: fadein 0.3s, fadeout 0.3s 2.3s;
+}
+
+@keyframes fadein {
+    from { bottom: 10px; opacity: 0; }
+    to { bottom: 30px; opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { bottom: 30px; opacity: 1; }
+    to { bottom: 10px; opacity: 0; }
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #d9534f;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 12px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+}
+
+#snackbar.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 30px; opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { bottom: 30px; opacity: 1; }
+    to { bottom: 0; opacity: 0; }
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Signup</title>
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-light">
+
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="#">
+                <span class="material-icons">storefront</span> ReadVerse
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Register</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===================== FORM SECTION ===================== -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+
+                <div class="card p-4 shadow-lg">
+                    <h3 class="text-center mb-3">Create Account</h3>
+
+                    <form id="signupForm">
+
+                        <!-- Name -->
+                        <div class="md-input">
+                            <input type="text" id="name" required>
+                            <label>Name</label>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="md-input">
+                            <input type="email" id="email" required>
+                            <label>Email</label>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="md-input">
+                            <input type="password" id="password" required>
+                            <label>Password</label>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="md-input">
+                            <input type="password" id="confirmPassword" required>
+                            <label>Confirm Password</label>
+                        </div>
+
+                        <button class="btn btn-primary w-100 mt-3" type="submit">
+                            Register
+                        </button>
+
+                    </form>
+
+                    <p class="text-center mt-3">
+                        Already have an account?
+                        <a href="login.html" class="fw-semibold" style="text-decoration:none;">
+                            Login here
+                        </a>
+                    </p>
+
+                </div>
+
+                <!-- Snackbar -->
+                <div id="snackbar"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url("../images/bg2.jpg") no-repeat center center/cover;
+    height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: -1;
+}
+
+.card.p-4.shadow-lg {
+    top: 15%;
+}
+
+/* MATERIAL DESIGN INPUT */
+.md-input {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.md-input input {
+    width: 100%;
+    padding: 10px 5px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+.md-input input:focus {
+    border-bottom: 2px solid #0d6efd;
+}
+
+.md-input label {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    color: #888;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.md-input input:focus + label,
+.md-input input:valid + label {
+    top: -12px;
+    font-size: 13px;
+    color: #0d6efd;
+}
+
+/* SNACKBAR */
+#snackbar {
+    visibility: hidden;
+    min-width: 260px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 14px;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    font-size: 16px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 40px; opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { bottom: 40px; opacity: 1; }
+    to { bottom: 0; opacity: 0; }
+}

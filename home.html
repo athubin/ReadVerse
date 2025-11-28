@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadVerse - Home</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/home.css">
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand fw-bold" href="#">ReadVerse</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+
+            <li class="nav-item">
+                <a class="nav-link active" href="home.html">Home</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="products.html">Shop</a>
+            </li>
+
+            <li class="nav-item admin-only">
+                <a class="nav-link" href="admin_login.html">Add Product</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="cart.html">Shop</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-danger" href="#" id="logoutBtn">Logout</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+
+<!-- Hero Section -->
+<section class="hero d-flex justify-content-center align-items-center text-center text-white">
+    <div>
+        <h1 class="fw-bold display-4">Welcome to ReadVerse</h1>
+        <p class="lead">Your next favorite book is just a click away</p>
+
+        <a href="products.html" class="btn btn-primary btn-lg mt-3 px-4 py-2 rounded-pill shadow">
+            Start Shopping
+        </a>
+    </div>
+</section>
+
+
+<!-- Categories -->
+<section class="container mt-5">
+    <h2 class="text-center mb-4 fw-bold">Top Categories</h2>
+
+    <div class="row g-4">
+    <div class="col-md-4">
+        <div class="category-box p-4 shadow rounded-4 text-center">
+            <h4>Fiction</h4>
+            <p>Novels, Short Stories, Classics</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="category-box p-4 shadow rounded-4 text-center">
+            <h4>Non-Fiction</h4>
+            <p>Biographies, Self-Help, History</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="category-box p-4 shadow rounded-4 text-center">
+            <h4>Children & Young Adult</h4>
+            <p>Picture Books, Teen Novels, Educational</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="category-box p-4 shadow rounded-4 text-center">
+            <h4>Science & Technology</h4>
+            <p>Programming, Space, Innovations</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="category-box p-4 shadow rounded-4 text-center">
+            <h4>Arts & Humanities</h4>
+            <p>Philosophy, History, Culture</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="category-box p-4 shadow rounded-4 text-center">
+            <h4>Comics & Graphic Novels</h4>
+            <p>Manga, Superheroes, Illustrated Stories</p>
+        </div>
+    </div>
+</div>
+
+    </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/home.js"></script>
+
+<!-- Footer -->
+<footer class="bg-dark text-white mt-5 pt-5 pb-3">
+    <div class="container">
+        <div class="row">
+
+            <!-- About -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold">About ReadVerse</h5>
+                <p>Your online bookstore for all genres. Explore, discover, and enjoy your next favorite read!</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="home.html" class="text-white text-decoration-none">Home</a></li>
+                    <li><a href="shop.html" class="text-white text-decoration-none">Shop</a></li>
+                    <li><a href="add-product.html" class="text-white text-decoration-none admin-only">Add Product</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold">Contact Us</h5>
+                <p>Email: support@readverse.com</p>
+                <p>Phone: +91 98765 43210</p>
+                <div>
+                    <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="bg-secondary">
+
+        <div class="text-center">
+            &copy; 2025 ReadVerse. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Icons (for social links) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<script>
+document.getElementById("logoutBtn")?.addEventListener("click", function () {
+    // Clear login session
+    localStorage.removeItem("currentUser");
+
+    // Optional: clear cart
+    // localStorage.removeItem("cart");
+
+    alert("Logged out successfully!");
+
+    // Redirect to login page
+    window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>

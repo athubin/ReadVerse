@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Product</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+body { font-family:'Roboto', sans-serif; background:#f0f2f5; }
+.nav-wrapper { background-color: #4a90e2; }
+.container { max-width:600px; margin:40px auto; padding:30px; background:#fff; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.1);}
+h4 { margin-bottom:30px; }
+.input-field input, .input-field textarea { border-bottom:1px solid #4a90e2; }
+.btn { width:100%; background-color:#4a90e2; }
+img.preview { max-width:100%; margin-top:10px; border-radius:5px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-wrapper">
+    <a href="index.html" class="brand-logo" style="padding-left:15px;">ToyTrove Admin</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product_list.html">Product List</a></li>
+      <li><a href="add_product.html">Add Product</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <h4>Edit Product</h4>
+  <form id="editProductForm">
+    <div class="input-field">
+      <input type="text" id="productName" required>
+      <label for="productName">Product Name</label>
+    </div>
+    <div class="input-field">
+      <input type="number" id="productPrice" required>
+      <label for="productPrice">Price</label>
+    </div>
+    <div class="input-field">
+      <input type="text" id="productCategory" required>
+      <label for="productCategory">Category</label>
+    </div>
+    <div class="input-field">
+      <textarea id="productDescription" class="materialize-textarea" required></textarea>
+      <label for="productDescription">Description</label>
+    </div>
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>Upload Image</span>
+        <input type="file" id="productImageFile" accept="image/*">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Upload product image">
+      </div>
+    </div>
+    <img id="imagePreview" class="preview" src="" alt="Product Image">
+    <button class="btn waves-effect waves-light" type="submit">Update Product</button>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const productId = localStorage.getItem('editProductId'); // get ID stored from list
+  let products = JSON.parse(localStorage.getItem('products')) || [];
+  const product = products.find(p => p.id == productId);
+
+  if(product){
+    document.getElementById('productName').value = product.name;
+    document.getElementById('productPrice').value = product.price;
+    document.getElementById('productCategory').value = product.category;
+    document.getElementById('productDescription').value = product.description;
+    M.updateTextFields();
+    if(product.image) document.getElementById('imagePreview').src = product.image;
+  }
+});
+
+document.getElementById('productImageFile').addEventListener('change', function(){
+  const reader = new FileReader();
+  reader.onload = function(){ document.getElementById('imagePreview').src = reader.result; }
+  if(this.files[0]) reader.readAsDataURL(this.files[0]);
+});
+
+document.getElementById('editProductForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const productId = localStorage.getItem('editProductId');
+  let products = JSON.parse(localStorage.getItem('products')) || [];
+  const product = products.find(p => p.id == productId);
+  if(!product) return alert('Product not found!');
+
+  const updatedProduct = {
+    id: product.id,
+    name: document.getElementById('productName').value.trim(),
+    price: parseFloat(document.getElementById('productPrice').value),
+    category: document.getElementById('productCategory').value.trim(),
+    description: document.getElementById('productDescription').value.trim(),
+    image: product.image
+  };
+
+  const imageInput = document.getElementById('productImageFile');
+  if(imageInput.files.length){
+    const reader = new FileReader();
+    reader.onload = function(){
+      updatedProduct.image = reader.result;
+      saveProduct(updatedProduct);
+    }
+    reader.readAsDataURL(imageInput.files[0]);
+  } else {
+    saveProduct(updatedProduct);
+  }
+
+  function saveProduct(updatedProduct){
+    products = products.map(p => p.id == productId ? updatedProduct : p);
+    localStorage.setItem('products', JSON.stringify(products));
+    alert('Product updated successfully!');
+    window.location.href = 'product_list.html';
+  }
+});
+
+function logout(){
+  localStorage.removeItem('loggedInUser');
+  window.location.href = 'login.html';
+}
+</script>
+</body>
+</html>
