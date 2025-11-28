@@ -29,8 +29,10 @@
         <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="products.html">Shop</a></li>
-            <li class="nav-item admin-only"><a class="nav-link" href="admin_login.html">Add Product</a></li>
-            <li class="nav-item"><a class="nav-link active text-danger" href="cart.html">Cart</a></li>
+            <li class="nav-item"><a class="nav-link active" href="cart.html">Cart</a></li>
+            <li class="nav-item">
+                <a class="nav-link text-danger" href="#" id="logoutBtn">Logout</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -93,6 +95,20 @@ function removeItem(i) {
 }
 
 loadCart();
+
+document.getElementById("logoutBtn")?.addEventListener("click", function () {
+    // Clear login session
+    localStorage.removeItem("currentUser");
+
+    // Optional: clear cart
+    // localStorage.removeItem("cart");
+
+    alert("Logged out successfully!");
+
+    // Redirect to login page
+    window.location.href = "login.html";
+});
+
 </script>
 
 </body>

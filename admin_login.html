@@ -87,7 +87,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
     if(email === admin.email && password === admin.password){
         localStorage.setItem("isAdminLoggedIn", "true");
-        window.location.href = "product_list.html";
+        window.location.href = "admin_home.html";
     } else {
         M.toast({html: 'Invalid credentials', classes:'red'});
     }

@@ -10,21 +10,22 @@
 
 <style>
 body { font-family:'Roboto', sans-serif; background:#f0f2f5; }
-.nav-wrapper { background-color: #4a90e2; }
-.container { max-width:600px; margin:40px auto; padding:30px; background:#fff; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.1);}
-h4 { margin-bottom:30px; }
-.input-field input, .input-field textarea { border-bottom:1px solid #4a90e2; }
+.nav-wrapper { background-color:#4a90e2; }
+.container-box { max-width:750px; margin:30px auto; padding:30px; background:#fff; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.1);}
+.product-details { background:#f7f9fc; padding:20px; border-radius:10px; border-left:5px solid #4a90e2; margin-bottom:25px;}
+.product-details p { margin:6px 0; font-size:16px; }
+.product-details span { font-weight:600; }
+img.preview { max-width:180px; margin:10px 0; border-radius:8px; border:1px solid #ccc; }
 .btn { width:100%; background-color:#4a90e2; }
-img.preview { max-width:100%; margin-top:10px; border-radius:5px; }
 </style>
 </head>
-<body>
 
+<body>
 <nav>
-  <div class="nav-wrapper">
-    <a href="index.html" class="brand-logo" style="padding-left:15px;">ReadVerse Admin</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="product_list.html">Home</a></li>
+  <div class="nav-wrapper" style="background-color:#4a90e2;">
+    <a href="admin_home.html" class="brand-logo" style="padding-left:15px;">ReadVerse - Admin Dashboard</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="admin_home.html">Home</a></li>
       <li><a href="product_list.html">Product List</a></li>
       <li><a href="add_product.html">Add Product</a></li>
       <li><a href="#" onclick="logout()">Logout</a></li>
@@ -32,102 +33,114 @@ img.preview { max-width:100%; margin-top:10px; border-radius:5px; }
   </div>
 </nav>
 
-<div class="container">
+<div class="container-box">
   <h4>Edit Product</h4>
+
+  <!-- Display existing product -->
+  <div class="product-details" id="productInfoBox">
+    <p><span>ID:</span> <span id="d_id"></span></p>
+    <p><span>Name:</span> <span id="d_name"></span></p>
+    <p><span>Price:</span> ₹<span id="d_price"></span></p>
+    <p><span>Category:</span> <span id="d_category"></span></p>
+    <p><span>Description:</span><br><span id="d_description"></span></p>
+    <p><span>Image:</span></p>
+    <img id="d_image" class="preview" src="">
+  </div>
+
   <form id="editProductForm">
-    <div class="input-field">
-      <input type="text" id="productName" required>
-      <label for="productName">Product Name</label>
-    </div>
-    <div class="input-field">
-      <input type="number" id="productPrice" required>
-      <label for="productPrice">Price</label>
-    </div>
-    <div class="input-field">
-      <input type="text" id="productCategory" required>
-      <label for="productCategory">Category</label>
-    </div>
-    <div class="input-field">
-      <textarea id="productDescription" class="materialize-textarea" required></textarea>
-      <label for="productDescription">Description</label>
-    </div>
+    <h6>Modify Fields Below</h6>
+    <div class="input-field"><input type="text" id="productName" required><label for="productName">Product Name</label></div>
+    <div class="input-field"><input type="number" id="productPrice" required><label for="productPrice">Price</label></div>
+    <div class="input-field"><input type="text" id="productCategory" required><label for="productCategory">Category</label></div>
+    <div class="input-field"><textarea id="productDescription" class="materialize-textarea" required></textarea><label for="productDescription">Description</label></div>
     <div class="file-field input-field">
-      <div class="btn">
-        <span>Upload Image</span>
-        <input type="file" id="productImageFile" accept="image/*">
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text" placeholder="Upload product image">
-      </div>
+      <div class="btn"><span>Upload New Image</span><input type="file" id="productImageFile" accept="image/*"></div>
+      <div class="file-path-wrapper"><input class="file-path validate" type="text"></div>
     </div>
-    <img id="imagePreview" class="preview" src="" alt="Product Image">
-    <button class="btn waves-effect waves-light" type="submit">Update Product</button>
+    <img id="imagePreview" class="preview" src="">
+    <button class="btn waves-effect waves-light" type="submit">Save Changes</button>
   </form>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
+// Load product
 document.addEventListener('DOMContentLoaded', () => {
-  const productId = localStorage.getItem('editProductId'); // get ID stored from list
-  let products = JSON.parse(localStorage.getItem('products')) || [];
-  const product = products.find(p => p.id == productId);
-
-  if(product){
-    document.getElementById('productName').value = product.name;
-    document.getElementById('productPrice').value = product.price;
-    document.getElementById('productCategory').value = product.category;
-    document.getElementById('productDescription').value = product.description;
-    M.updateTextFields();
-    if(product.image) document.getElementById('imagePreview').src = product.image;
-  }
-});
-
-document.getElementById('productImageFile').addEventListener('change', function(){
-  const reader = new FileReader();
-  reader.onload = function(){ document.getElementById('imagePreview').src = reader.result; }
-  if(this.files[0]) reader.readAsDataURL(this.files[0]);
-});
-
-document.getElementById('editProductForm').addEventListener('submit', function(e){
-  e.preventDefault();
   const productId = localStorage.getItem('editProductId');
   let products = JSON.parse(localStorage.getItem('products')) || [];
   const product = products.find(p => p.id == productId);
-  if(!product) return alert('Product not found!');
+  if (!product) return alert("Product not found!");
 
-  const updatedProduct = {
-    id: product.id,
-    name: document.getElementById('productName').value.trim(),
-    price: parseFloat(document.getElementById('productPrice').value),
-    category: document.getElementById('productCategory').value.trim(),
-    description: document.getElementById('productDescription').value.trim(),
-    image: product.image
-  };
+  document.getElementById("d_id").innerText = product.id;
+  document.getElementById("d_name").innerText = product.name;
+  document.getElementById("d_price").innerText = product.price;
+  document.getElementById("d_category").innerText = product.category;
+  document.getElementById("d_description").innerText = product.description;
+  document.getElementById("d_image").src = product.image;
 
-  const imageInput = document.getElementById('productImageFile');
-  if(imageInput.files.length){
-    const reader = new FileReader();
-    reader.onload = function(){
-      updatedProduct.image = reader.result;
-      saveProduct(updatedProduct);
-    }
-    reader.readAsDataURL(imageInput.files[0]);
-  } else {
-    saveProduct(updatedProduct);
-  }
+  document.getElementById('productName').value = product.name;
+  document.getElementById('productPrice').value = product.price;
+  document.getElementById('productCategory').value = product.category;
+  document.getElementById('productDescription').value = product.description;
 
-  function saveProduct(updatedProduct){
-    products = products.map(p => p.id == productId ? updatedProduct : p);
-    localStorage.setItem('products', JSON.stringify(products));
-    alert('Product updated successfully!');
-    window.location.href = 'product_list.html';
-  }
+  M.updateTextFields();
 });
 
-function logout(){
-  localStorage.removeItem('loggedInUser');
-  window.location.href = 'login.html';
+// Preview image
+document.getElementById('productImageFile').addEventListener('change', function(){
+  const reader = new FileReader();
+  reader.onload = () => { document.getElementById('imagePreview').src = reader.result; }
+  if(this.files[0]) reader.readAsDataURL(this.files[0]);
+});
+
+// Save changes
+document.getElementById('editProductForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const id = localStorage.getItem('editProductId');
+  let products = JSON.parse(localStorage.getItem('products')) || [];
+  const product = products.find(p => p.id == id);
+  if(!product) return;
+
+  product.name = document.getElementById('productName').value;
+  product.price = parseFloat(document.getElementById('productPrice').value);
+  product.category = document.getElementById('productCategory').value;
+  product.description = document.getElementById('productDescription').value;
+
+  const file = document.getElementById('productImageFile').files[0];
+  if(file){
+    const reader = new FileReader();
+    reader.onload = () => { product.image = reader.result; saveProducts(products); }
+    reader.readAsDataURL(file);
+  } else { saveProducts(products); }
+});
+
+function saveProducts(products){
+  localStorage.setItem('products', JSON.stringify(products));
+  alert("Product updated successfully!");
+  window.location.href = "product_list.html";
 }
+
+function logout(){
+  localStorage.removeItem("loggedInUser");
+  window.location.href = "login.html";
+}
+
+const file = document.getElementById('productImageFile').files[0];
+
+if(file){
+  const reader = new FileReader();
+  reader.onload = () => { 
+      product.image = reader.result; 
+      saveProducts(products);
+  }
+  reader.readAsDataURL(file);
+} else {
+  // Preserve existing image or fallback
+  product.image = product.image || 'default-image.png';
+  saveProducts(products);
+}
+
 </script>
+
 </body>
 </html>
