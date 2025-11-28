@@ -78,7 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('productCategory').value = product.category;
     document.getElementById('productDescription').value = product.description;
     M.updateTextFields();
-    if(product.image) document.getElementById('imagePreview').src = product.image;
+    //if(product.image) document.getElementById('imagePreview').src = product.image;
+    const githubBase = "https://athubin.github.io/ReadVerse/images/";
+    document.getElementById('imagePreview').src = githubBase + product.image;
+
   }
 });
 
