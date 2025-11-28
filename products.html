@@ -39,17 +39,13 @@ function renderProducts() {
     let container = document.getElementById("productList");
     container.innerHTML = "";
 
-    const githubBase = "https://athubin.github.io/ReadVerse/images/";
-
     products.forEach((p, i) => {
-
-        let imageURL = githubBase + p.imagename;
         
         container.innerHTML += `
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm h-100">
 
-                <img src="${p.imageURL}" class="card-img-top" 
+                <img src="${p.imagename}" class="card-img-top" 
                      style="height:250px; object-fit:cover;">
 
                 <div class="card-body d-flex flex-column">
